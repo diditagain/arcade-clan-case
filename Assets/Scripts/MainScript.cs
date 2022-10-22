@@ -94,16 +94,17 @@ public class MainScript : MonoBehaviour
     #region Stacking System
     private void OnTriggerEnter(Collider other)
     {
-        float jumpPower = 1;
+        float jumpPower = 1f;
         for (int i = collectables.Count -1; i >= 0; i--)
         {
-            collectables[i].transform.DOLocalJump(collectables[i].transform.localPosition, jumpPower, 1, 0.5f);
-            jumpPower += 0.2f;
+            collectables[i].transform.DOLocalJump(collectables[i].transform.localPosition, jumpPower, 1, 0.3f);
+            jumpPower += 0.5f;
         }
         if (other.gameObject.CompareTag("Collectable"))
         {
+            DOTween.CompleteAll();
             other.GetComponent<Collider>().enabled = false;
-            for(int i = collectables.Count -1; i >= 0; i--)
+            for(int i = 0; i < collectables.Count; i++)
             {
                 collectables[i].transform.DOLocalJump(collectables[i].transform.localPosition + Vector3.up * 1.2f, 1, 1, 0.5f);
             }
@@ -113,12 +114,13 @@ public class MainScript : MonoBehaviour
         }
         else if(other.gameObject.CompareTag("Obstacle"))
         {
+            DOTween.CompleteAll();
             other.gameObject.GetComponent<Collider>().enabled = false;
             GameObject lastCube = collectables[collectables.Count - 1];
             lastCube.transform.DOKill();
             lastCube.transform.SetParent(collectablesParent);
             collectables.Remove(lastCube);
-            for (int i= collectables.Count -1; i >= 0; i--)
+            for (int i = 0; i < collectables.Count; i++)
             {
                 collectables[i].transform.DOLocalJump(collectables[i].transform.localPosition - Vector3.up * 1.2f, 1, 1, 0.5f);
             }
