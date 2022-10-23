@@ -106,7 +106,7 @@ public class MainScript : MonoBehaviour
             other.GetComponent<Collider>().enabled = false;
             for(int i = 0; i < collectables.Count; i++)
             {
-                collectables[i].transform.DOLocalJump(collectables[i].transform.localPosition + Vector3.up * 1.2f, 1, 1, 0.5f);
+                collectables[i].transform.DOLocalJump(collectables[i].transform.localPosition + Vector3.up * 1.1f, 1, 1, 0.5f);
             }
             collectables.Add(other.gameObject);
             other.transform.SetParent(stack);
@@ -122,7 +122,7 @@ public class MainScript : MonoBehaviour
             collectables.Remove(lastCube);
             for (int i = 0; i < collectables.Count; i++)
             {
-                collectables[i].transform.DOLocalJump(collectables[i].transform.localPosition - Vector3.up * 1.2f, 1, 1, 0.5f);
+                collectables[i].transform.DOLocalJump(collectables[i].transform.localPosition - Vector3.up * 1.1f, 0.9f, 1, 0.5f);
             }
         }
     }
